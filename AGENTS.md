@@ -16,9 +16,11 @@ Before any screenshot-based UI implementation, reading the design system, active
 
 ## Working principles
 
-- Treat references as evidence to analyze, not source material to copy blindly.
+- Treat reference designs as the primary visual source of truth for composition, hierarchy, proportions, spacing, imagery, and visual relationships. Analyze them rather than copying mechanically, but do not redesign or reinterpret supplied designs unless explicitly requested.
 - Apply the core design system first and the active theme as its visual expression. If they conflict, accessibility and explicit task requirements win, then the core design system.
 - Reuse existing code and assets where appropriate; do not delete or overwrite unrelated files.
+- Always inspect supplied assets before creating substitutes. Use supplied original logos, images, icons, illustrations, and approved fonts unless there is a technical reason not to; do not replace them with generated, stock, placeholder, or alternative assets without an explicit reason.
+- Preserve task scope. Do not redesign or refactor unrelated pages, sections, or components unless required for correctness or explicitly requested.
 - Do not invent a framework, dependency, font, image, or icon source without documenting the choice and confirming it fits the task.
 - Build semantic, accessible, responsive interfaces. Avoid matching a desktop screenshot with brittle fixed positioning.
 - Prefer reusable tokens and components over one-off values and duplicated patterns.
@@ -35,7 +37,7 @@ Before declaring UI work complete:
 
 - Run the project's available tests, linting, type checks, and production build.
 - Confirm semantic structure, keyboard access, visible focus, contrast, text resizing, reduced motion, and useful alternative text.
-- Compare current screenshots with the references at representative desktop and mobile sizes.
+- Compare the rendered page with supplied references at representative desktop and mobile sizes, and do not declare screenshot-based UI work complete while meaningful visual discrepancies remain. Continue correcting meaningful differences according to `VISUAL_QA.md`.
 - Record screenshots and QA notes under `visual-qa/` using descriptive names; do not place reference originals there.
 - Report remaining differences and environment limitations honestly.
 
