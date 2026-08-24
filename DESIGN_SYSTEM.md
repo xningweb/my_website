@@ -10,6 +10,19 @@ This framework-agnostic system defines the durable rules for future websites in 
 4. **Accessible by default:** accessibility is part of component behavior and visual decisions.
 5. **Progressive enhancement:** core content and actions should survive constrained devices and preferences.
 
+## Source of truth
+
+For reference-based UI implementation, use this priority order:
+
+1. Supplied reference designs
+2. Supplied original assets
+3. Active theme
+4. Core Design System
+5. Existing reusable components and project conventions
+6. Engineering judgment
+
+Supplied reference designs are the primary visual source of truth for composition, hierarchy, proportions, spacing, imagery, typography relationships, and overall visual relationships. The active theme provides the visual language used to implement the reference, while this Core Design System provides structural, responsive, accessibility, consistency, and engineering constraints. Do not redesign or reinterpret a supplied reference unless explicitly requested. Accessibility and explicit functional requirements take priority when they genuinely conflict with visual fidelity.
+
 ## Design tokens
 
 Define tokens in the implementation layer (CSS custom properties, theme object, or platform equivalent) rather than scattering literals. Use semantic names so themes can change without rewriting components.
@@ -80,6 +93,13 @@ Use a consistent base scale rather than arbitrary gaps. A practical default scal
 - Support portrait and landscape orientations, zoom to 200%, and dynamic content lengths.
 - Prefer responsive images (`srcset`, `sizes`, or platform equivalents) and art direction when the crop must change.
 
+## Reference-based implementation
+
+- Analyze the complete reference before coding. Identify its page structure, hierarchy, proportions, grids, spacing, typography, imagery, and responsive relationships.
+- Match the supplied reference rather than introducing arbitrary stylistic improvements. Do not add, remove, or redesign major visual elements unless explicitly requested.
+- Implement responsive behavior from supplied desktop and mobile references when available. When only one viewport is supplied, infer responsive behavior using this Core Design System without changing the design's visual identity.
+- After implementation, follow `VISUAL_QA.md`. Render at the reference viewport dimensions when practical, compare the rendered implementation against the supplied reference, correct meaningful visual discrepancies, and repeat verification before declaring the implementation complete.
+
 ## Components
 
 Components should have a single clear responsibility, semantic markup, token-driven styling, and documented variants and states.
@@ -104,6 +124,8 @@ Components should have a single clear responsibility, semantic markup, token-dri
 ## Images and media
 
 - Store approved production assets in the relevant `public/` directory; keep design references in `references/`.
+- Always inspect supplied assets before creating substitutes. When an original asset used by the reference design is supplied, use that asset.
+- Do not replace supplied logos, photographs, icons, illustrations, or approved fonts with generated, stock, placeholder, or alternative assets unless technically necessary or explicitly requested.
 - Select meaningful imagery that supports the content. Do not use decorative media as a substitute for hierarchy.
 - Provide accurate alternative text for informative images and empty alternative text for decorative images.
 - Preserve aspect ratio, define intrinsic dimensions, and use intentional crops with `object-fit`/`object-position` or equivalents.
