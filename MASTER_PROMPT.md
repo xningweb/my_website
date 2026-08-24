@@ -29,11 +29,11 @@ Open the exact theme path named in `ACTIVE_THEME.md`. Translate the core and the
 
 ## 3. Inspect references
 
-Inventory `references/` and inspect every item relevant to the requested view. Note dimensions, content, layout, type hierarchy, spacing, imagery, colors, component states, and implied responsive behavior. Identify missing information and make conservative, documented assumptions.
+Inventory `references/` and inspect every item relevant to the requested view. For screenshot-based UI implementation, supplied reference designs are the primary visual source of truth. Analyze composition, hierarchy, section order, proportions, section dimensions, container widths, grids and columns, alignment, spacing, typography hierarchy, text wrapping, imagery, image dimensions, image crop and focal position, component dimensions, colors and surfaces, borders and radii, shadows, and responsive relationships. Do not redesign or reinterpret a supplied reference unless explicitly requested. Identify missing information and make conservative, documented assumptions.
 
 ## 4. Inspect assets
 
-Inventory `public/images/`, `public/icons/`, `public/fonts/`, and any framework-specific asset locations. Check format, dimensions, licensing/provenance when known, and suitability. Reuse appropriate assets; do not fabricate paths or silently substitute unrelated media.
+Inventory `public/images/`, `public/icons/`, `public/fonts/`, and any framework-specific asset locations before creating substitutes. Check format, dimensions, licensing/provenance when known, and suitability. When supplied original logos, photographs, images, icons, illustrations, or approved fonts are available, prefer and use them unless there is a technical reason not to. Do not fabricate paths or silently replace supplied assets with generated images, stock images, placeholders, alternative icons, or unrelated media.
 
 ## 5. Inspect codebase
 
@@ -45,7 +45,7 @@ Write an implementation plan covering page structure, reusable components, token
 
 ## 7. Implement
 
-Build semantic, responsive UI using the existing stack. Apply shared tokens and components, meaningful source order, suitable media behavior, complete interaction states, and theme-consistent but original visual treatment. Keep the change scoped to the task.
+Build a faithful implementation using clean, semantic, responsive, accessible, and maintainable code in the existing stack. Apply shared tokens and components, meaningful source order, suitable media behavior, and complete interaction states. Use the active theme to implement the supplied reference, not to override its composition; theme consistency must not become an unrequested redesign. Preserve task scope: do not redesign unrelated pages, sections, or components unless explicitly requested or required for correctness.
 
 ## 8. Run
 
@@ -57,11 +57,39 @@ Follow `VISUAL_QA.md`. Capture the target at the reference dimensions when avail
 
 ## 10. Compare
 
-Compare screenshots against the references systematically: structure, geometry, typography, spacing, imagery, color, detail, then interaction. Use overlays or diffs where helpful and record specific discrepancies.
+Compare screenshots against the references systematically in this order:
+
+1. overall page silhouette;
+2. missing content;
+3. page structure and section order;
+4. section dimensions;
+5. container widths;
+6. grids and columns;
+7. images, crop, and media positioning;
+8. typography and line wrapping;
+9. alignment;
+10. spacing;
+11. component dimensions and states;
+12. colors;
+13. borders and radii;
+14. shadows and decorative details.
+
+For the overall silhouette, check total page length, section proportions, major whitespace regions, image placement, content density, and large background regions. Use overlay and difference-image comparison when tooling permits, according to `VISUAL_QA.md`, and record specific discrepancies.
 
 ## 11. Correct
 
-Fix high-impact systemic differences before small decoration. Re-run, recapture, and compare. Repeat until no significant discrepancy remains; avoid single-viewport hacks.
+Follow the complete iterative loop:
+
+```text
+SCREENSHOT
+→ COMPARE
+→ CORRECT
+→ RUN
+→ SCREENSHOT AGAIN
+→ COMPARE AGAIN
+```
+
+Continue while meaningful visual discrepancies remain. Always fix structural and high-impact differences before fine decorative details. Do not use brittle one-viewport hacks merely to improve screenshot similarity.
 
 ## 12. Responsive QA
 
@@ -73,8 +101,16 @@ Check semantic landmarks and headings, keyboard-only use, focus order and visibi
 
 ## 14. Final verify
 
-Run the full applicable test, lint, type-check, and production-build suite. Review the final diff for accidental changes, hard-coded secrets, broken paths, debug output, and unrelated files. Confirm final screenshots and QA notes are saved in `visual-qa/`. Summarize what changed, commands run, remaining limitations, and intentional reference differences.
+Run the full applicable test, lint, type-check, and production-build suite. Review the final diff for accidental changes, hard-coded secrets, broken paths, debug output, and unrelated files. For screenshot-based UI implementation, confirm that the screenshot comparison and correction loop was performed and that remaining visual differences are minor or caused by documented limitations such as unavailable original assets, unavailable fonts, browser/platform rendering differences, accessibility requirements, or explicit functional constraints. Confirm final screenshots and QA notes are saved in `visual-qa/`. Summarize what changed, commands run, remaining limitations, and intentional reference differences honestly.
 
 ## Definition of done
 
-A task is complete only when the requested experience is implemented, the visual loop has converged at desktop and mobile sizes, intermediate responsive behavior is sound, accessibility checks pass, project validation succeeds, and known limitations are disclosed.
+A task is complete only when the requested experience is implemented, the visual loop has converged at desktop and mobile sizes, intermediate responsive behavior is sound, accessibility checks pass, project validation succeeds, and known limitations are disclosed. For screenshot-based UI implementation, completion requires both:
+
+```text
+FUNCTIONAL CORRECTNESS
++
+VISUAL VERIFICATION
+```
+
+Do not declare the task complete merely because the application builds, the page renders, all sections exist, tests pass, or the page generally resembles the reference. The screenshot comparison and correction loop must have been performed, and known remaining differences must be reported honestly.
