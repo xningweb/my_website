@@ -31,7 +31,10 @@ function lineIcon(type) {
     bottle: '<path d="M13 5h6v8l3 3v11H10V16l3-3z"/><circle cx="16" cy="21" r="2"/>',
     clipper: '<path d="M9 27c1-6 2-9 7-10-4-2-5-6-4-11 2 4 4 5 4 5s2-1 4-5c1 5 0 9-4 11 5 1 6 4 7 10"/><circle cx="16" cy="17" r="2"/>',
     repair: '<path d="M11 27V12c0-5 2-7 5-7s5 2 5 7v15M12 10c3 3 6 3 8 0M18 6l3-3"/><path d="m20 3 2 2"/>',
-    plus: '<circle cx="16" cy="16" r="12"/><path d="M10 16h12M16 10v12"/>'
+    plus: '<circle cx="16" cy="16" r="12"/><path d="M10 16h12M16 10v12"/>',
+    location: '<path d="M16 29S7 20 7 12a9 9 0 0 1 18 0c0 8-9 17-9 17z"/><circle cx="16" cy="12" r="3"/>',
+    clock: '<circle cx="16" cy="16" r="13"/><path d="M16 7v10l6 3"/>',
+    instagram: '<rect x="3" y="3" width="26" height="26" rx="7"/><circle cx="16" cy="16" r="6"/><circle cx="24" cy="8" r="1"/>'
   };
   return `<svg viewBox="0 0 32 32" aria-hidden="true">${paths[type]}</svg>`;
 }
@@ -71,6 +74,44 @@ function renderServices() {
 }
 
 if (window.location.pathname.replace(/\/$/, '') === '/services') renderServices();
+
+function renderAbout() {
+  document.title = 'About Us | Lark Nail Studio';
+  document.querySelector('meta[name="description"]').content = 'Meet Lark Nail Studio, a welcoming Melbourne studio for elevated, individual nail art.';
+  document.body.classList.add('about-page');
+  const main = document.querySelector('#main');
+  main.dataset.page = 'about';
+  main.innerHTML = `
+    <section class="about-intro" aria-labelledby="about-title">
+      <div class="about-copy">
+        <h1 id="about-title">About Lark</h1>
+        <div class="about-rule" aria-hidden="true"><span></span><b>✦</b></div>
+        <p>Inspired by flight, freedom<br>and delicate beauty.<br>We create nails that<br>let you feel like you.</p>
+      </div>
+      <img class="about-photo" src="public/images/salon interior photo.jpg" alt="Warm, softly lit interior of Lark Nail Studio">
+    </section>
+    <section class="studio-details" aria-label="Studio details">
+      <div class="detail-item">${lineIcon('location')}<span>Melbourne CBD</span></div>
+      <div class="detail-item">${lineIcon('clock')}<span>Mon – Sun<br>10:00am – 7:00pm</span></div>
+      <a class="detail-item" href="https://instagram.com/lark.nailstudio">${lineIcon('instagram')}<span>@lark.nailstudio</span></a>
+      <div class="about-emblem" aria-hidden="true">
+        <span></span><div><img src="public/icons/logo.png" alt=""></div><span></span>
+      </div>
+    </section>
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <h2 id="testimonials-title">Loved by our clients</h2>
+      <figure>
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>The best nail studio I’ve ever been to!<br>So clean, so talented, and the nails last<br>perfectly.</blockquote>
+        <figcaption>— MOMO</figcaption>
+      </figure>
+      <div class="testimonial-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+    </section>`;
+  document.querySelector('.drawer-logo').removeAttribute('aria-current');
+  document.querySelector('.drawer a[href="/about"]').setAttribute('aria-current', 'page');
+}
+
+if (window.location.pathname.replace(/\/$/, '') === '/about') renderAbout();
 
 function openDrawer() {
   backdrop.hidden = false;
