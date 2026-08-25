@@ -203,6 +203,91 @@ function renderContact() {
 
 if (window.location.pathname.replace(/\/$/, '') === '/contact') renderContact();
 
+const bookingDates = [
+  ['2026-05-19', 'Mon', 'May 19'],
+  ['2026-05-20', 'Tue', 'May 20'],
+  ['2026-05-21', 'Wed', 'May 21'],
+  ['2026-05-22', 'Thu', 'May 22'],
+  ['2026-05-23', 'Fri', 'May 23']
+];
+
+const bookingTimes = ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'];
+
+function renderBooking() {
+  document.title = 'Book Appointment | Lark Nail Studio';
+  document.querySelector('meta[name="description"]').content = 'Choose appointment preferences and send your details to Lark Nail Studio.';
+  document.body.classList.add('booking-page');
+  const main = document.querySelector('#main');
+  main.dataset.page = 'booking';
+  main.innerHTML = `
+    <section class="booking-intro" aria-labelledby="booking-title">
+      <div class="booking-copy">
+        <h1 id="booking-title">Book your<br>appointment</h1>
+        <div class="booking-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      </div>
+      <div class="booking-emblem" aria-hidden="true"><img src="public/icons/logo.png" alt=""></div>
+    </section>
+    <form class="booking-form" aria-describedby="booking-disclosure booking-status">
+      <fieldset class="booking-step service-step">
+        <legend><span>1</span>Choose a service</legend>
+        <label class="visually-hidden" for="booking-service">Choose a service</label>
+        <select id="booking-service" name="service" required>
+          <option value="">Select a service</option>
+          <option>BIAB Manicure</option><option>Gel Manicure</option><option>Nail Art</option><option>Extensions</option>
+        </select>
+      </fieldset>
+      <fieldset class="booking-step date-step">
+        <legend><span>2</span>Choose date</legend>
+        <div class="date-picker">
+          <button class="date-arrow" type="button" aria-label="Show earlier example dates">‹</button>
+          <div class="date-options">
+            ${bookingDates.map(([value, day, date], index) => `<label><input type="radio" name="date" value="${value}"${index === 2 ? ' checked' : ''} required><span><b>${day}</b>${date}</span></label>`).join('')}
+          </div>
+          <button class="date-arrow" type="button" aria-label="Show later example dates">›</button>
+        </div>
+      </fieldset>
+      <fieldset class="booking-step time-step">
+        <legend><span>3</span>Select time</legend>
+        <div class="time-options">
+          ${bookingTimes.map((time, index) => `<label><input type="radio" name="time" value="${time}"${index === 4 ? ' checked' : ''} required><span>${time}</span></label>`).join('')}
+        </div>
+      </fieldset>
+      <fieldset class="booking-step information-step">
+        <legend><span>4</span>Your information</legend>
+        <div class="name-fields">
+          <div class="booking-field"><label for="booking-first">First name</label><input id="booking-first" name="firstName" type="text" autocomplete="given-name" placeholder="First name" required></div>
+          <div class="booking-field"><label for="booking-last">Last name</label><input id="booking-last" name="lastName" type="text" autocomplete="family-name" placeholder="Last name" required></div>
+        </div>
+        <div class="booking-field"><label for="booking-email">Email address</label><input id="booking-email" name="email" type="email" autocomplete="email" placeholder="Email address" required></div>
+        <div class="booking-field"><label for="booking-phone">Phone number</label><div class="phone-field"><span aria-hidden="true">AU&nbsp;&nbsp; +61</span><input id="booking-phone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" required></div></div>
+        <div class="booking-field"><label for="booking-requests">Special requests (optional)</label><textarea id="booking-requests" name="requests" placeholder="Special requests (optional)"></textarea></div>
+      </fieldset>
+      <button class="booking-submit" type="submit">Confirm appointment</button>
+      <p class="booking-security" id="booking-disclosure"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg> Your information is secure and will never be shared.</p>
+      <p class="booking-status" id="booking-status" role="status"></p>
+    </form>`;
+  document.querySelector('.drawer-logo').removeAttribute('aria-current');
+  document.querySelector('.drawer-book').setAttribute('aria-current', 'page');
+  document.querySelector('.header-book').setAttribute('aria-current', 'page');
+
+  const form = document.querySelector('.booking-form');
+  const dateInputs = [...form.querySelectorAll('input[name="date"]')];
+  form.querySelectorAll('.date-arrow').forEach((button, direction) => {
+    button.addEventListener('click', () => {
+      const selectedIndex = dateInputs.findIndex(input => input.checked);
+      const nextIndex = Math.max(0, Math.min(dateInputs.length - 1, selectedIndex + (direction ? 1 : -1)));
+      dateInputs[nextIndex].checked = true;
+      dateInputs[nextIndex].focus();
+    });
+  });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    document.querySelector('.booking-status').textContent = 'Your appointment preferences are ready, but online booking is not connected. Please contact the studio to complete your booking.';
+  });
+}
+
+if (window.location.pathname.replace(/\/$/, '') === '/booking') renderBooking();
+
 function openDrawer() {
   backdrop.hidden = false;
   requestAnimationFrame(() => backdrop.classList.add('visible'));
