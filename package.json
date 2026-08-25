@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "check": "node --check server.js",
-    "build": "rm -rf dist && mkdir -p dist/public && cp index.html styles.css dist/ && cp -R public/images public/icons dist/public/"
+    "check": "node --check server.js && node --check script.js",
+    "build": "rm -rf dist && mkdir -p dist/public && cp index.html styles.css script.js dist/ && cp -R public/images public/icons public/fonts dist/public/"
   }
 }
