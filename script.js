@@ -113,6 +113,42 @@ function renderAbout() {
 
 if (window.location.pathname.replace(/\/$/, '') === '/about') renderAbout();
 
+const galleryImages = [
+  ['public/images/Nail art example 1.png', 'Manicure with curved red, white, and blue nail art'],
+  ['public/images/Nail art example 2.png', 'Square nails with a soft pink glitter manicure'],
+  ['public/images/Nail art example 3.png', 'Almond-shaped nails with a pearly white manicure'],
+  ['public/images/Nail art example 4.png', 'Manicure with pale blue French tips']
+];
+
+function renderGallery() {
+  document.title = 'Nail Art Gallery | Lark Nail Studio';
+  document.querySelector('meta[name="description"]').content = 'Explore nail art created at Lark Nail Studio and find inspiration for your next appointment.';
+  document.body.classList.add('gallery-page');
+  const main = document.querySelector('#main');
+  main.dataset.page = 'gallery';
+  main.innerHTML = `
+    <section class="gallery-intro" aria-labelledby="gallery-title">
+      <div class="gallery-copy">
+        <h1 id="gallery-title">Nail Art Gallery</h1>
+        <div class="gallery-rule" aria-hidden="true"><span></span><b>✦</b></div>
+        <p>Explore our creations and find<br>your next inspiration.</p>
+      </div>
+      <div class="gallery-emblem" aria-hidden="true"><img src="public/icons/logo.png" alt=""></div>
+    </section>
+    <section class="gallery-grid" aria-label="Nail art examples">
+      ${galleryImages.map(([src, alt], index) => `<img src="${src}" alt="${alt}" width="600" height="360"${index > 1 ? ' loading="lazy"' : ''}>`).join('')}
+    </section>
+    <aside class="gallery-cta" aria-label="Book a custom nail art appointment">
+      <span class="gallery-sparkle" aria-hidden="true">✦</span>
+      <p><strong>Love something you see?</strong><span>Show your favourite design to your technician<br>and we’ll create it just for you.</span></p>
+      <a class="gallery-book" href="/booking">Book appointment</a>
+    </aside>`;
+  document.querySelector('.drawer-logo').removeAttribute('aria-current');
+  document.querySelector('.drawer a[href="/gallery"]').setAttribute('aria-current', 'page');
+}
+
+if (window.location.pathname.replace(/\/$/, '') === '/gallery') renderGallery();
+
 function openDrawer() {
   backdrop.hidden = false;
   requestAnimationFrame(() => backdrop.classList.add('visible'));
