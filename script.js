@@ -149,6 +149,60 @@ function renderGallery() {
 
 if (window.location.pathname.replace(/\/$/, '') === '/gallery') renderGallery();
 
+function renderContact() {
+  document.title = 'Contact Us | Lark Nail Studio';
+  document.querySelector('meta[name="description"]').content = 'Send a message to the team at Lark Nail Studio.';
+  document.body.classList.add('contact-page');
+  const main = document.querySelector('#main');
+  main.dataset.page = 'contact';
+  main.innerHTML = `
+    <section class="contact-intro" aria-labelledby="contact-title">
+      <h1 id="contact-title">Contact Us</h1>
+      <div class="contact-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      <p>Have a question or want to get in touch?<br>Send us a message and we’ll get back to you soon.</p>
+    </section>
+    <form class="contact-form" aria-describedby="contact-form-note">
+      <div class="form-field">
+        <label for="contact-email">Your Email</label>
+        <input id="contact-email" name="email" type="email" placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="form-field">
+        <label for="contact-subject">Subject</label>
+        <input id="contact-subject" name="subject" type="text" placeholder="How can we help?" required>
+      </div>
+      <div class="form-field">
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" placeholder="Type your message here..." required></textarea>
+      </div>
+      <div class="form-field attachment-field">
+        <label for="contact-attachment">Attachment <span>(optional)</span></label>
+        <label class="upload-control" for="contact-attachment">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m12 17 7-7a4 4 0 0 1 6 6L14 27A7 7 0 0 1 4 17L17 4a5 5 0 0 1 7 0"/></svg>
+          <span><strong>Click to upload or drag and drop</strong><small>Max size 10MB (PDF, JPG, PNG)</small></span>
+        </label>
+        <input class="file-input" id="contact-attachment" name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="attachment-help">
+        <span id="attachment-help" class="visually-hidden">Accepted file types are PDF, JPG, and PNG, up to 10 megabytes.</span>
+      </div>
+      <button class="contact-submit" type="submit">Send message</button>
+      <p class="form-note" id="contact-form-note" role="status">Online message delivery is not currently connected.</p>
+    </form>
+    <div class="contact-emblem" aria-hidden="true"><span></span><i>✦</i><i>✦</i><div><img src="public/icons/logo.png" alt=""></div><i>✦</i><i>✦</i><span></span></div>`;
+  document.querySelector('.drawer-logo').removeAttribute('aria-current');
+  document.querySelector('.drawer a[href="/contact"]').setAttribute('aria-current', 'page');
+
+  const form = document.querySelector('.contact-form');
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    document.querySelector('.form-note').classList.add('visible');
+  });
+  document.querySelector('.file-input').addEventListener('change', event => {
+    const filename = event.target.files[0]?.name;
+    if (filename) document.querySelector('.upload-control strong').textContent = filename;
+  });
+}
+
+if (window.location.pathname.replace(/\/$/, '') === '/contact') renderContact();
+
 function openDrawer() {
   backdrop.hidden = false;
   requestAnimationFrame(() => backdrop.classList.add('visible'));
