@@ -211,15 +211,25 @@ function renderContact() {
 
 if (window.location.pathname.replace(/\/$/, '') === '/contact') renderContact();
 
-const bookingDates = [
-  ['2026-05-19', 'Mon', 'May 19'],
-  ['2026-05-20', 'Tue', 'May 20'],
-  ['2026-05-21', 'Wed', 'May 21'],
-  ['2026-05-22', 'Thu', 'May 22'],
-  ['2026-05-23', 'Fri', 'May 23']
-];
-
 const bookingTimes = ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'];
+
+function localDateValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function dateFromLocalValue(value) {
+  const [year, month, day] = value.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function addLocalDays(value, amount) {
+  const date = dateFromLocalValue(value);
+  date.setDate(date.getDate() + amount);
+  return localDateValue(date);
+}
 
 function renderBooking() {
   document.title = 'Book Appointment | Lark Nail Studio';
@@ -227,6 +237,7 @@ function renderBooking() {
   document.body.classList.add('booking-page');
   const main = document.querySelector('#main');
   main.dataset.page = 'booking';
+  const today = localDateValue();
   main.innerHTML = `
     <section class="booking-intro" aria-labelledby="booking-title">
       <div class="booking-copy">
@@ -247,11 +258,13 @@ function renderBooking() {
       <fieldset class="booking-step date-step">
         <legend><span>2</span>Choose date</legend>
         <div class="date-picker">
-          <button class="date-arrow" type="button" aria-label="Show earlier example dates">‹</button>
-          <div class="date-options">
-            ${bookingDates.map(([value, day, date], index) => `<label><input type="radio" name="date" value="${value}"${index === 2 ? ' checked' : ''} required><span><b>${day}</b>${date}</span></label>`).join('')}
-          </div>
-          <button class="date-arrow" type="button" aria-label="Show later example dates">›</button>
+          <button class="date-arrow" type="button" data-direction="-1" aria-label="Choose previous date">‹</button>
+          <div class="date-options" aria-label="Quick-select dates"></div>
+          <button class="date-arrow" type="button" data-direction="1" aria-label="Choose next date">›</button>
+        </div>
+        <div class="calendar-date-field">
+          <label for="booking-date">Choose another date</label>
+          <input id="booking-date" name="date" type="date" min="${today}" value="${today}" required>
         </div>
       </fieldset>
       <fieldset class="booking-step time-step">
@@ -279,15 +292,48 @@ function renderBooking() {
   document.querySelector('.header-book').setAttribute('aria-current', 'page');
 
   const form = document.querySelector('.booking-form');
-  const dateInputs = [...form.querySelectorAll('input[name="date"]')];
-  form.querySelectorAll('.date-arrow').forEach((button, direction) => {
+  const nativeDateInput = form.querySelector('#booking-date');
+  const dateOptions = form.querySelector('.date-options');
+  let selectedDate = today;
+  let visibleStartDate = today;
+
+  function renderDateStrip() {
+    dateOptions.innerHTML = Array.from({ length: 5 }, (_, index) => {
+      const value = addLocalDays(visibleStartDate, index);
+      const date = dateFromLocalValue(value);
+      const dayName = new Intl.DateTimeFormat('en-AU', { weekday: 'short' }).format(date);
+      const dateLabel = new Intl.DateTimeFormat('en-AU', { month: 'short', day: 'numeric' }).format(date);
+      return `<label><input type="radio" name="quickDate" value="${value}"${value === selectedDate ? ' checked' : ''}><span><b>${dayName}</b>${dateLabel}</span></label>`;
+    }).join('');
+    dateOptions.querySelectorAll('input[name="quickDate"]').forEach(input => {
+      input.addEventListener('change', () => selectDate(input.value, false));
+    });
+    dateOptions.querySelector('input:checked')?.closest('label').scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+
+  function selectDate(value, updateContext = true) {
+    if (!value || value < today) {
+      nativeDateInput.value = selectedDate;
+      return;
+    }
+    selectedDate = value;
+    nativeDateInput.value = selectedDate;
+    if (updateContext || selectedDate < visibleStartDate || selectedDate > addLocalDays(visibleStartDate, 4)) {
+      visibleStartDate = selectedDate < addLocalDays(today, 2) ? today : addLocalDays(selectedDate, -2);
+    }
+    renderDateStrip();
+  }
+
+  nativeDateInput.addEventListener('change', () => selectDate(nativeDateInput.value));
+  form.querySelectorAll('.date-arrow').forEach(button => {
     button.addEventListener('click', () => {
-      const selectedIndex = dateInputs.findIndex(input => input.checked);
-      const nextIndex = Math.max(0, Math.min(dateInputs.length - 1, selectedIndex + (direction ? 1 : -1)));
-      dateInputs[nextIndex].checked = true;
-      dateInputs[nextIndex].focus();
+      const nextDate = addLocalDays(selectedDate, Number(button.dataset.direction));
+      if (nextDate < today) return;
+      selectDate(nextDate, false);
+      dateOptions.querySelector('input:checked')?.focus();
     });
   });
+  renderDateStrip();
   form.addEventListener('submit', event => {
     event.preventDefault();
     document.querySelector('.booking-status').textContent = 'Your appointment preferences are ready, but online booking is not connected. Please contact the studio to complete your booking.';
