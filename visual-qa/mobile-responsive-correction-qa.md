@@ -28,6 +28,20 @@
    - Reflowed the copy and button into separate rows.
    - Gave the label flexible width, normal wrapping as a fallback, sufficient padding, and a 44px minimum target height.
 
+## Human-browser follow-up
+
+Human browser verification after the first correction pass recorded:
+
+- **PASS:** About mobile layout and stacked content.
+- **PASS:** About information rows (Melbourne CBD, opening hours, and Instagram).
+- **PASS:** Gallery BOOK APPOINTMENT CTA and label containment.
+- **STILL FAILED AFTER FIRST PASS:** The mobile BOOK NOW control remained too wide and collided visually with the centered wordmark.
+- **STILL FAILED AFTER FIRST PASS:** The Services hero logo remained too large and overlapped the “Our Services” heading.
+
+The phone-only follow-up keeps the visible **BOOK NOW** label but reduces its type to 9px, tracking to `.03em`, and horizontal padding to 6px while retaining a 44px minimum touch height. The wordmark remains absolutely centered on the viewport and the hamburger remains unchanged.
+
+At the same `max-width: 520px` breakpoint, the Services hero now uses a single-column normal-flow composition: heading and divider first, followed by the complete centered logo. The logo has a 96px width with automatic height, preserving its aspect ratio; a 28px grid gap and section padding provide separation without overlap, cropping, negative positioning, or horizontal overflow. Tablet and desktop rules are unchanged.
+
 ## Contact and booking safety review
 
 Source review found no concrete container-width or control-label overflow requiring a route-specific layout change. Both routes use width-constrained forms and controls inside their phone gutters. Their earlier accessibility corrections retain 44px-or-larger primary controls and readable functional typography, so no additional redesign was made.
@@ -45,4 +59,3 @@ Source review found no concrete container-width or control-label overflow requir
 - Static checks: `npm run check`, `npm run build`, and `git diff --check`.
 - Route smoke test: `/`, `/services`, `/about`, `/gallery`, `/contact`, and `/booking` checked for HTTP 200 responses.
 - Browser screenshot tooling is unavailable in this environment. No implementation screenshots or visual-comparison claims are made; corrections are based on the supplied human-browser observations and source-level responsive analysis.
-
