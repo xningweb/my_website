@@ -143,3 +143,54 @@ main[data-page="home"] .hero-book{min-width:331px;min-height:54px}
   .booking-submit{height:48px;font-size:14px}
   .booking-security,.booking-status{font-size:12px}
 }
+
+/* Phone-only correction pass. These composition changes intentionally stop at
+   the existing 520px breakpoint so the approved tablet and desktop layouts are
+   unaffected. */
+@media(max-width:520px){
+  /* Center the identity on the viewport rather than in the unequal space left
+     between the menu and booking controls. */
+  .site-header{position:relative;grid-template-columns:1fr 1fr}
+  .wordmark{position:absolute;top:13px;left:50%;transform:translateX(-50%)}
+  .header-book{grid-column:2;padding-inline:10px;min-height:44px;font-size:12px}
+
+  /* The complete SVG is sized and centered by its layout box. */
+  main[data-page="home"] .hero-art{display:grid;place-items:center;margin-inline:auto}
+  main[data-page="home"] .hero-art img{width:auto;height:100%;max-width:100%;margin:0}
+
+  /* Keep the services emblem alongside its heading, but allow both grid tracks
+     and the image itself to shrink without extending beyond the section. */
+  .services-intro{grid-template-columns:minmax(0,1fr) minmax(130px,160px)}
+  .services-intro>img{display:block;width:100%;max-width:160px;height:255px;justify-self:end}
+
+  /* Functional CTA type remains readable; the action receives its own row and
+     full available width instead of competing horizontally with the copy. */
+  .services-help{min-height:0;padding:18px;grid-template-columns:28px minmax(0,1fr);gap:8px 10px}
+  .services-help>.sparkle-cluster{grid-row:1}
+  .services-help p{grid-column:2;min-width:0;font-size:13px}
+  .services-help p strong{font-size:14px}
+  .services-help p span br{display:none}
+  .contact-button{grid-column:1/-1;width:100%;margin-top:6px;min-height:44px;font-size:12px}
+
+  /* About content follows a readable source-order stack on phones. */
+  .about-intro{min-height:0;padding:42px 32px 48px;grid-template-columns:minmax(0,1fr);gap:28px}
+  .about-copy{padding-top:0}
+  .about-copy h1{font-size:25px}
+  .about-copy p{max-width:32rem;font-size:16px;line-height:1.65}
+  .about-copy p br{content:" "}
+  .about-copy p br::after{content:" "}
+  .about-photo{width:100%;height:auto;aspect-ratio:4/5;max-height:430px;border-radius:50% 50% 0 0;object-position:40% center}
+
+  .studio-details{min-height:0;padding:36px 32px 28px;grid-template-columns:minmax(0,1fr);gap:0}
+  .detail-item{min-height:56px;gap:14px;font-size:14px}
+  .detail-item+.detail-item{border-left:0;border-top:1px solid #c9ddf0;padding-left:0}
+  .detail-item svg{width:24px;height:24px}
+  .about-emblem{margin-top:26px}
+
+  /* Gallery booking copy and action no longer share undersized columns. */
+  .gallery-cta{min-height:0;padding:16px;grid-template-columns:27px minmax(0,1fr);gap:8px 10px}
+  .gallery-cta>.sparkle-cluster{grid-row:1}
+  .gallery-cta p{grid-column:2;min-width:0;font-size:12px}
+  .gallery-cta strong{font-size:14px}
+  .gallery-book{grid-column:1/-1;width:100%;margin-top:6px;padding:10px 14px;min-height:44px;font-size:12px;line-height:1.2;white-space:normal;text-align:center}
+}
