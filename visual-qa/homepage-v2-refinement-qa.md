@@ -25,3 +25,17 @@
 ## Browser status and retained differences
 
 No browser executable or screenshot runner is installed in this environment. Browser captures, overlays, browser-console review, and interactive real-browser verification could not be performed. No generated screenshot is recorded as a substitute. The source was calibrated against the reference, but the 390px, 798px, and 1024px layouts still require a browser capture pass to assess platform font rasterization and make any final optical spacing adjustments. The approved, uncropped `logo-mark.svg` has a taller/narrower silhouette than the earlier raster artwork visible in the reference; that asset-driven difference is intentionally retained.
+
+## Browser Optical Pass
+
+### Adjustments
+
+- Reduced the Homepage emblem's compact-viewport height from 344px to 276px, bringing its apparent scale closer to the active reference while retaining the complete, undistorted SVG.
+- Increased the compact-viewport emblem-to-headline gap from 7px to 12px so the asymmetric artwork and Bodoni headline have clearer optical separation.
+- Reduced the emblem height below 351px from 310px to 250px to prevent the mark from dominating narrow screens and to tighten the first-screen vertical rhythm.
+
+These adjustments affect only the Homepage at widths up to 520px. The established 798px composition and centered 798px canvas at a 1024px viewport are intentionally unchanged because the available reference does not provide reliable browser evidence for further large-screen corrections. The shared header, divider, sparkle, navigation drawer, local fonts, CTA target sizing, and approved production assets are also unchanged.
+
+### Verification status and remaining differences
+
+No browser executable or screenshot runner is available in this environment, so this pass used source-level review at 390px, 798px, and 1024px and did not claim pixel-perfect browser verification. Browser captures are still required to confirm platform-specific Bodoni metrics, the final optical relationship between the narrow SVG silhouette and the headline, and anti-aliased divider weight. The intentionally uncropped approved SVG remains taller and narrower than the historical raster mark in the active reference.
