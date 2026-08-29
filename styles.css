@@ -152,16 +152,17 @@ main[data-page="home"] .hero-book{min-width:331px;min-height:54px}
      between the menu and booking controls. */
   .site-header{position:relative;grid-template-columns:1fr 1fr}
   .wordmark{position:absolute;top:13px;left:50%;transform:translateX(-50%)}
-  .header-book{grid-column:2;padding-inline:10px;min-height:44px;font-size:12px}
+  .header-book{grid-column:2;padding-inline:6px;min-height:44px;font-size:9px;letter-spacing:.03em}
 
   /* The complete SVG is sized and centered by its layout box. */
   main[data-page="home"] .hero-art{display:grid;place-items:center;margin-inline:auto}
   main[data-page="home"] .hero-art img{width:auto;height:100%;max-width:100%;margin:0}
 
-  /* Keep the services emblem alongside its heading, but allow both grid tracks
-     and the image itself to shrink without extending beyond the section. */
-  .services-intro{grid-template-columns:minmax(0,1fr) minmax(130px,160px)}
-  .services-intro>img{display:block;width:100%;max-width:160px;height:255px;justify-self:end}
+  /* Stack the services heading and complete emblem so they have independent
+     space instead of competing in the desktop side-by-side composition. */
+  .services-intro{height:auto;min-height:330px;padding:42px 25px 36px;grid-template-columns:minmax(0,1fr);gap:28px}
+  .services-intro>div{padding-top:0}
+  .services-intro>img{display:block;width:96px;max-width:100%;height:auto;justify-self:center}
 
   /* Functional CTA type remains readable; the action receives its own row and
      full available width instead of competing horizontally with the copy. */
