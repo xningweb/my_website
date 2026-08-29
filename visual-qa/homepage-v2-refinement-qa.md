@@ -25,3 +25,9 @@
 ## Browser status and retained differences
 
 No browser executable or screenshot runner is installed in this environment. Browser captures, overlays, browser-console review, and interactive real-browser verification could not be performed. No generated screenshot is recorded as a substitute. The source was calibrated against the reference, but the 390px, 798px, and 1024px layouts still require a browser capture pass to assess platform font rasterization and make any final optical spacing adjustments. The approved, uncropped `logo-mark.svg` has a taller/narrower silhouette than the earlier raster artwork visible in the reference; that asset-driven difference is intentionally retained.
+
+## Logo-mark rendering correction
+
+The Homepage logo-mark displayed as a broken image during human browser verification.
+
+The failure was isolated to the standalone SVG asset rather than the Homepage image URL, its CSS, or the server MIME map. The Illustrator-exported SVG depended on an embedded class stylesheet and included a degenerate all-zero `stroke-dasharray` declaration. The asset was normalized for external `<img>` use by moving its shared transparent fill, stroke, and miter limit onto the SVG root, removing the invalid export-only dash declaration and unused editor metadata/classes, and retaining all original hand-and-bird paths. The required SVG namespace and the cleaned `viewBox="27.4 37.8 245.2 444.4"` are preserved. The server continues to return the asset as `image/svg+xml`; no Homepage layout or optical spacing was changed.
