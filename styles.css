@@ -57,7 +57,7 @@
 .services-help>.sparkle-cluster,.gallery-cta>.sparkle-cluster{justify-self:start}
 .about-copy>.decorative-divider{margin:34px 0 29px}
 .about-emblem{grid-template-columns:1fr 160px 1fr}
-.about-emblem>.decorative-divider{width:100%}.about-emblem>img{display:block;width:auto;height:145px;max-width:100%;margin:auto}
+.about-emblem>.decorative-divider{width:100%}.about-emblem>img{position:relative;left:3px;display:block;width:auto;height:145px;max-width:100%;margin:auto}
 .testimonials>.decorative-divider{margin:42px auto 0}
 .gallery-copy>.decorative-divider{margin:26px 0 24px}
 .gallery-emblem{overflow:visible}.gallery-emblem img{display:block;width:auto;height:100%;max-width:100%;margin:auto;transform:none}
@@ -101,4 +101,44 @@ main[data-page="home"] .hero-book{min-width:331px;min-height:54px}
 @media(max-width:350px){
   main[data-page="home"] .hero-art{height:310px}
   main[data-page="home"] .hero{padding-inline:18px}
+}
+
+/* Final browser-gap corrections: preserve the established compositions while
+   keeping functional copy and controls readable at compact widths. */
+.about-photo{object-position:40% center}
+@media(max-width:520px){
+  .header-book{min-height:44px;font-size:12px}
+  .services-help p{font-size:12px;line-height:1.5}
+  .contact-button{min-height:44px;font-size:12px}
+  .detail-item{font-size:12px}
+  .testimonials blockquote,.testimonials figcaption{font-size:12px}
+  .gallery-copy p{font-size:12px}
+  .gallery-cta{min-height:72px;grid-template-columns:27px 1fr 105px}
+  .gallery-cta p{font-size:12px}
+  .gallery-cta strong{font-size:13px}
+  .gallery-book{min-height:44px;font-size:12px}
+  .contact-intro{height:auto;min-height:172px;padding-bottom:24px}
+  .contact-intro p{font-size:13px}
+  .form-field label{font-size:13px}
+  .form-field input:not(.file-input),.form-field textarea{font-size:14px}
+  .form-field input:not(.file-input){height:44px}
+  .upload-control{min-height:64px}
+  .upload-control strong{font-size:13px}
+  .upload-control small{font-size:12px}
+  .contact-submit{height:44px;font-size:13px}
+  .form-note{font-size:12px}
+  .booking-step legend{font-size:12px}
+  .booking-step legend span{width:24px;height:24px;font-size:12px}
+  .booking-step select{height:44px;font-size:14px}
+  .date-picker{grid-template-columns:44px 1fr 44px}
+  .date-options span{font-size:12px}
+  .date-arrow{height:44px}
+  .time-options span{height:44px;font-size:12px}
+  .booking-field>label{font-size:12px}
+  .information-step input{height:44px;font-size:14px}
+  .information-step textarea{height:72px;font-size:14px}
+  .phone-field{grid-template-columns:84px 1fr}
+  .phone-field span{font-size:12px}
+  .booking-submit{height:48px;font-size:14px}
+  .booking-security,.booking-status{font-size:12px}
 }
