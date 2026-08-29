@@ -92,13 +92,13 @@ main[data-page="home"] .hero-book{min-width:331px;min-height:54px}
   .wordmark-sub{margin-top:4px;font-size:7px;letter-spacing:.42em;text-indent:.42em}
   main[data-page="home"]{--home-content-width:340px}
   main[data-page="home"] .hero{min-height:610px;padding:18px 24px 44px}
-  main[data-page="home"] .hero-art{width:min(100%,190px);height:344px;margin-bottom:7px}
+  main[data-page="home"] .hero-art{width:min(100%,190px);height:276px;margin-bottom:12px}
   main[data-page="home"] .hero h1{font-size:clamp(30px,8.2vw,34px);line-height:1.13}
   main[data-page="home"] .flourish{margin:26px auto 19px}
   main[data-page="home"] .eyebrow{margin-bottom:27px;font-size:12px;letter-spacing:.2em}
   main[data-page="home"] .hero-book{min-width:min(100%,195px);min-height:44px;font-size:10px}
 }
 @media(max-width:350px){
-  main[data-page="home"] .hero-art{height:310px}
+  main[data-page="home"] .hero-art{height:250px}
   main[data-page="home"] .hero{padding-inline:18px}
 }
