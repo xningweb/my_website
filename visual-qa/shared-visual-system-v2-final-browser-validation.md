@@ -52,8 +52,8 @@ All four findings were clear, in scope, and safe to correct. No additional specu
 
 ## F. Fixes implemented
 
-- Applied a controlled 3px inline optical correction to the About EmblemDivider image. The existing shared divider grid and untouched SVG asset remain in use; the correction compensates for asymmetric artwork within the SVG viewBox rather than changing mathematical track balance.
-- Shifted the About interior photograph focal position from centered to 40% inline, keeping the approved asset, `object-fit: cover`, intrinsic aspect ratio, and arch treatment intact while prioritizing the manicure workstation and chair.
+- The earlier 3px About EmblemDivider optical correction proved insufficient in human browser review. The remaining legacy image translation is now explicitly reset, the 3px offset is removed, and the SVG rendered box is centered in the unchanged equal-track divider composition.
+- The earlier 40% About interior photograph focal position also proved insufficient in human browser review. The cover crop now uses breakpoint-specific 16% desktop and 20% compact inline focal positions so the foreground chair remains grouped with the workstation.
 - Raised compact functional/body typography to 12–14px where source values were approximately 7–11px. Brand subtitle sizing and decorative glyph sizing were intentionally left unchanged because they are not functional text.
 - Raised affected compact interactive controls to at least 44px and allowed their containing compositions to grow rather than solving layout pressure by shrinking labels.
 
@@ -63,13 +63,13 @@ All four findings were clear, in scope, and safe to correct. No additional specu
 
 - Source-level review covered all six routes, long service/price rows, grids, decorative lines, media, forms, drawer sizing, and compact typography.
 - Corrected small functional text and undersized targets across secondary routes.
-- About image uses the corrected focal point at this width; the emblem correction scales with the existing mobile emblem dimensions.
+- About uses its compact 20% image focal point at this width; the emblem's stale compact transform is reset so its rendered box centers in the existing mobile grid.
 - Browser-visible wrapping, crop quality, and overflow remain CANNOT VERIFY.
 
 ### 798px
 
 - All routes retain the established 798px editorial canvas and route-specific reference composition.
-- About focal positioning and optical emblem correction apply without changing section geometry.
+- About uses its 16% image focal point at this width; the emblem centers without the legacy translation or a compensating relative offset.
 - Browser-visible spacing and exact image framing remain CANNOT VERIFY.
 
 ### 1024px
@@ -83,16 +83,18 @@ All four findings were clear, in scope, and safe to correct. No additional specu
 ### About EmblemDivider centering
 
 - **Initial status:** NEEDS FIX.
-- **Cause:** equal grid tracks mathematically centered the SVG element, while the preserved SVG viewBox contains asymmetric visual weight.
-- **Resolution:** retained the EmblemDivider/shared decorative architecture and applied a controlled 3px optical shift. `logo-mark.svg` was not edited, distorted, cropped, or redrawn.
-- **Final browser confirmation:** still required because this environment cannot render a browser screenshot.
+- **Previous correction was insufficient:** human browser review confirmed that the emblem remained visibly off-center after the source-level 3px optical adjustment.
+- **Root cause:** the legacy `.about-emblem img` rule still supplied `transform: translate(-65px, -13px)` (and `translate(-33px, -7px)` on compact screens). The later V2 direct-child rule changed the image sizing and added `left: 3px`, but did not reset that transform, so the large legacy translation continued to move the rendered logo box left inside an otherwise balanced three-track grid.
+- **New correction:** retained equal flexible line tracks, the fixed center wrapper track, matching gaps, and the approved SVG aspect ratio; explicitly reset the stale transform and removed the ineffective 3px relative offset. The direct image now centers with auto inline margins in its middle track. `logo-mark.svg` remains unchanged, uncropped, and undistorted.
+- **Validation status:** source geometry and HTTP delivery verified; a browser executable is still unavailable in this environment, so a new local browser screenshot could not be captured.
 
 ### About Interior Design image focal point
 
 - **Initial status:** NEEDS FIX.
-- **Cause:** the default near-center cover position did not sufficiently prioritize important workstation/chair content in the supplied portrait photograph.
-- **Resolution:** retained the approved source image and arch geometry, and set a restrained 40% inline focal position across breakpoints.
-- **Final browser confirmation:** still required at 390px, 798px, and 1024px.
+- **Previous correction was insufficient:** human browser review confirmed that the Interior Design subject remained cropped with the 40% focal position.
+- **Root cause:** the approved photograph is substantially wider than the tall arched media box. With `object-fit: cover`, the box necessarily removes horizontal content; a 40% inline focal point still begins the crop too far into the photograph and cuts the left edge of the foreground client chair, which is part of the important workstation subject.
+- **New correction:** retained the approved image, cover treatment, container dimensions, and arch geometry, but moved the crop window toward the photograph's inline start: 16% in the 325 × 520 composition and 20% in the wider-proportioned 186 × 260 compact composition. The breakpoint-specific positions account for the different crop widths while keeping the chair and workstation together without stretching the source.
+- **Validation status:** source geometry and HTTP delivery verified at the requested endpoints; a browser executable is still unavailable in this environment, so new 390px, 798px, and 1024px captures could not be produced locally.
 
 ## I. Accessibility review
 

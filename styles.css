@@ -57,7 +57,8 @@
 .services-help>.sparkle-cluster,.gallery-cta>.sparkle-cluster{justify-self:start}
 .about-copy>.decorative-divider{margin:34px 0 29px}
 .about-emblem{grid-template-columns:1fr 160px 1fr}
-.about-emblem>.decorative-divider{width:100%}.about-emblem>img{position:relative;left:3px;display:block;width:auto;height:145px;max-width:100%;margin:auto}
+.about-emblem>.decorative-divider{width:100%}.about-emblem>img{display:block;width:auto;height:145px;max-width:100%;margin:auto;transform:none}
+.about-photo{object-position:16% center}
 .testimonials>.decorative-divider{margin:42px auto 0}
 .gallery-copy>.decorative-divider{margin:26px 0 24px}
 .gallery-emblem{overflow:visible}.gallery-emblem img{display:block;width:auto;height:100%;max-width:100%;margin:auto;transform:none}
@@ -71,7 +72,7 @@
   .decorative-divider{--sparkle-size:10px}.divider--small{--divider-width:63px}.divider--standard{--divider-width:112px}.divider--wide{--divider-width:214px}
   .services-intro>div>.decorative-divider{margin-top:24px}.service-group>.decorative-divider{margin:0 0 14px 7px}
   .service-icon img{width:26px;height:26px}.services-help>.sparkle-cluster{transform:scale(.7);transform-origin:left center}
-  .about-copy>.decorative-divider{margin:21px 0 16px}.about-emblem{grid-template-columns:1fr 82px 1fr}.about-emblem>img{height:72px}
+  .about-copy>.decorative-divider{margin:21px 0 16px}.about-emblem{grid-template-columns:1fr 82px 1fr}.about-emblem>img{height:72px}.about-photo{object-position:20% center}
   .testimonials>.decorative-divider{margin-top:25px}.gallery-copy>.decorative-divider{margin:18px 0 14px}
   .contact-intro>.decorative-divider{margin:22px auto 20px}.contact-emblem{grid-template-columns:1fr 34px 1fr;gap:6px;width:185px}.contact-emblem>img{height:50px}
   .booking-copy>.decorative-divider{margin-top:16px}.drawer-flourish{margin-block:32px 27px}
