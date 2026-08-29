@@ -8,10 +8,10 @@ const serviceGroups = [
   {
     title: 'Manicure & Nail Art',
     items: [
-      ['public/icons/BIAB.png', 'BIAB Manicure', '$75+', '75 mins'],
-      ['public/icons/gel.png', 'Gel Manicure', '$65+', '60 mins'],
-      ['public/icons/Nail art.png', 'Nail Art', '$85+', '90 mins'],
-      ['public/icons/Extensions.png', 'Extensions', '$95+', '120 mins']
+      ['public/icons/biab.svg', 'BIAB Manicure', '$75+', '75 mins'],
+      ['public/icons/gel.svg', 'Gel Manicure', '$65+', '60 mins'],
+      ['public/icons/nail-art.svg', 'Nail Art', '$85+', '90 mins'],
+      ['public/icons/extensions.svg', 'Extensions', '$95+', '120 mins']
     ]
   },
   {
@@ -25,6 +25,14 @@ const serviceGroups = [
     ]
   }
 ];
+
+function decorativeDivider(variant = 'standard') {
+  return `<div class="decorative-divider divider--${variant}" aria-hidden="true"></div>`;
+}
+
+function sparkleCluster(variant = 'standard') {
+  return `<span class="sparkle-cluster sparkle--${variant}" aria-hidden="true"></span>`;
+}
 
 function lineIcon(type) {
   const paths = {
@@ -48,7 +56,7 @@ function renderServices() {
   const groups = serviceGroups.map(group => `
     <section class="service-group" aria-labelledby="${group.title.toLowerCase().replace(/[^a-z]+/g, '-')}">
       <h2 id="${group.title.toLowerCase().replace(/[^a-z]+/g, '-')}">${group.title}</h2>
-      <div class="section-rule" aria-hidden="true"><span></span><b>✦</b></div>
+      ${decorativeDivider('small')}
       <ul class="service-card">
         ${group.items.map(([icon, name, price, duration]) => `<li>
           <span class="service-icon">${icon.includes('/') ? `<img src="${icon}" alt="">` : lineIcon(icon)}</span>
@@ -60,12 +68,12 @@ function renderServices() {
     </section>`).join('');
   main.innerHTML = `
     <section class="services-intro" aria-labelledby="services-title">
-      <div><h1 id="services-title">Our Services</h1><div class="title-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div></div>
-      <img src="public/icons/logo.png" alt="" aria-hidden="true">
+      <div><h1 id="services-title">Our Services</h1>${decorativeDivider('standard')}</div>
+      <img src="public/icons/logo-mark.svg" alt="" aria-hidden="true">
     </section>
     <div class="services-list">${groups}</div>
     <aside class="services-help" aria-label="Service selection help">
-      <span class="sparkles" aria-hidden="true">✦<small>✦</small></span>
+      ${sparkleCluster()}
       <p><strong>Not sure what to choose?</strong><span>Our team is here to help you<br>find the perfect service.</span></p>
       <a class="contact-button" href="/contact">Contact us</a>
     </aside>`;
@@ -85,7 +93,7 @@ function renderAbout() {
     <section class="about-intro" aria-labelledby="about-title">
       <div class="about-copy">
         <h1 id="about-title">About Lark</h1>
-        <div class="about-rule" aria-hidden="true"><span></span><b>✦</b></div>
+        ${decorativeDivider('small')}
         <p>Inspired by flight, freedom<br>and delicate beauty.<br>We create nails that<br>let you feel like you.</p>
       </div>
       <img class="about-photo" src="public/images/salon interior photo.jpg" alt="Warm, softly lit interior of Lark Nail Studio">
@@ -95,7 +103,7 @@ function renderAbout() {
       <div class="detail-item">${lineIcon('clock')}<span>Mon – Sun<br>10:00am – 7:00pm</span></div>
       <a class="detail-item" href="https://instagram.com/lark.nailstudio">${lineIcon('instagram')}<span>@lark.nailstudio</span></a>
       <div class="about-emblem" aria-hidden="true">
-        <span></span><div><img src="public/icons/logo.png" alt=""></div><span></span>
+        ${decorativeDivider('standard')}<img src="public/icons/logo-mark.svg" alt="">${decorativeDivider('standard')}
       </div>
     </section>
     <section class="testimonials" aria-labelledby="testimonials-title">
@@ -105,7 +113,7 @@ function renderAbout() {
         <blockquote>The best nail studio I’ve ever been to!<br>So clean, so talented, and the nails last<br>perfectly.</blockquote>
         <figcaption>— MOMO</figcaption>
       </figure>
-      <div class="testimonial-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      ${decorativeDivider('wide')}
     </section>`;
   document.querySelector('.drawer-logo').removeAttribute('aria-current');
   document.querySelector('.drawer a[href="/about"]').setAttribute('aria-current', 'page');
@@ -130,16 +138,16 @@ function renderGallery() {
     <section class="gallery-intro" aria-labelledby="gallery-title">
       <div class="gallery-copy">
         <h1 id="gallery-title">Nail Art Gallery</h1>
-        <div class="gallery-rule" aria-hidden="true"><span></span><b>✦</b></div>
+        ${decorativeDivider('small')}
         <p>Explore our creations and find<br>your next inspiration.</p>
       </div>
-      <div class="gallery-emblem" aria-hidden="true"><img src="public/icons/logo.png" alt=""></div>
+      <div class="gallery-emblem" aria-hidden="true"><img src="public/icons/logo-mark.svg" alt=""></div>
     </section>
     <section class="gallery-grid" aria-label="Nail art examples">
       ${galleryImages.map(([src, alt], index) => `<img src="${src}" alt="${alt}" width="600" height="360"${index > 1 ? ' loading="lazy"' : ''}>`).join('')}
     </section>
     <aside class="gallery-cta" aria-label="Book a custom nail art appointment">
-      <span class="gallery-sparkle" aria-hidden="true">✦</span>
+      ${sparkleCluster('small')}
       <p><strong>Love something you see?</strong><span>Show your favourite design to your technician<br>and we’ll create it just for you.</span></p>
       <a class="gallery-book" href="/booking">Book appointment</a>
     </aside>`;
@@ -158,7 +166,7 @@ function renderContact() {
   main.innerHTML = `
     <section class="contact-intro" aria-labelledby="contact-title">
       <h1 id="contact-title">Contact Us</h1>
-      <div class="contact-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      ${decorativeDivider('standard')}
       <p>Have a question or want to get in touch?<br>Send us a message and we’ll get back to you soon.</p>
     </section>
     <form class="contact-form" aria-describedby="contact-form-note">
@@ -186,7 +194,7 @@ function renderContact() {
       <button class="contact-submit" type="submit">Send message</button>
       <p class="form-note" id="contact-form-note" role="status">Online message delivery is not currently connected.</p>
     </form>
-    <div class="contact-emblem" aria-hidden="true"><span></span><i>✦</i><i>✦</i><div><img src="public/icons/logo.png" alt=""></div><i>✦</i><i>✦</i><span></span></div>`;
+    <div class="contact-emblem" aria-hidden="true">${decorativeDivider('small')}<img src="public/icons/logo-mark.svg" alt="">${decorativeDivider('small')}</div>`;
   document.querySelector('.drawer-logo').removeAttribute('aria-current');
   document.querySelector('.drawer a[href="/contact"]').setAttribute('aria-current', 'page');
 
@@ -223,9 +231,9 @@ function renderBooking() {
     <section class="booking-intro" aria-labelledby="booking-title">
       <div class="booking-copy">
         <h1 id="booking-title">Book your<br>appointment</h1>
-        <div class="booking-rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+        ${decorativeDivider('standard')}
       </div>
-      <div class="booking-emblem" aria-hidden="true"><img src="public/icons/logo.png" alt=""></div>
+      <div class="booking-emblem" aria-hidden="true"><img src="public/icons/logo-mark.svg" alt=""></div>
     </section>
     <form class="booking-form" aria-describedby="booking-disclosure booking-status">
       <fieldset class="booking-step service-step">
