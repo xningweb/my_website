@@ -194,4 +194,14 @@ main[data-page="home"] .hero-book{min-width:331px;min-height:54px}
   .gallery-cta p{grid-column:2;min-width:0;font-size:12px}
   .gallery-cta strong{font-size:14px}
   .gallery-book{grid-column:1/-1;width:100%;margin-top:6px;padding:10px 14px;min-height:44px;font-size:12px;line-height:1.2;white-space:normal;text-align:center}
+
+  /* Keep the date controls outside a three-card viewport on phones. The full
+     five-date set stays in the DOM and can be reached by touch scrolling or
+     the existing previous/next controls. */
+  .date-picker{grid-template-columns:44px minmax(0,1fr) 44px}
+  .date-options{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 14px)/3);grid-template-columns:none;gap:7px;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:inline mandatory;scrollbar-width:none}
+  .date-options::-webkit-scrollbar{display:none}
+  .date-options label{min-width:0;scroll-snap-align:start}
+  .date-options span{height:72px;padding-inline:3px;gap:5px;font-size:12px;line-height:1.2;text-align:center;white-space:nowrap}
+  .date-arrow{width:44px;height:44px;display:grid;place-items:center;align-self:center;padding:0;font-size:30px;line-height:1}
 }
