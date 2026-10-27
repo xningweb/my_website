@@ -81,7 +81,7 @@ function renderServices() {
   document.querySelector('.drawer a[href="/services"]').setAttribute('aria-current', 'page');
 }
 
-if (window.location.pathname.replace(/\/$/, '') === '/services') renderServices();
+if (window.location.hash === '#/services') renderServices();
 
 function renderAbout() {
   document.title = 'About Us | Lark Nail Studio';
@@ -119,7 +119,7 @@ function renderAbout() {
   document.querySelector('.drawer a[href="/about"]').setAttribute('aria-current', 'page');
 }
 
-if (window.location.pathname.replace(/\/$/, '') === '/about') renderAbout();
+if (window.location.hash === '#/about') renderAbout();
 
 const galleryImages = [
   ['public/images/Nail art example 1.png', 'Manicure with curved red, white, and blue nail art'],
@@ -155,7 +155,7 @@ function renderGallery() {
   document.querySelector('.drawer a[href="/gallery"]').setAttribute('aria-current', 'page');
 }
 
-if (window.location.pathname.replace(/\/$/, '') === '/gallery') renderGallery();
+if (window.location.hash === '#/gallery') renderGallery();
 
 function renderContact() {
   document.title = 'Contact Us | Lark Nail Studio';
@@ -209,7 +209,7 @@ function renderContact() {
   });
 }
 
-if (window.location.pathname.replace(/\/$/, '') === '/contact') renderContact();
+if (window.location.hash === '#/contact') renderContact();
 
 const bookingTimes = ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'];
 
@@ -340,7 +340,7 @@ function renderBooking() {
   });
 }
 
-if (window.location.pathname.replace(/\/$/, '') === '/booking') renderBooking();
+if (window.location.hash === '#/booking') renderBooking();
 
 function openDrawer() {
   backdrop.hidden = false;
@@ -385,3 +385,13 @@ document.addEventListener('keydown', event => {
     }
   }
 });
+
+// GitHub Pages serves this project under /my_website/ and does not support
+// server-side rewrites. Hash routes work on direct visits and refreshes.
+// Convert internal links only after page-specific aria-current selectors run.
+document.querySelectorAll('a[href^="/"]').forEach(link => {
+  link.setAttribute('href', '#' + link.getAttribute('href'));
+});
+
+// Preserve existing page initialization and event handlers on each route.
+window.addEventListener('hashchange', () => window.location.reload());
